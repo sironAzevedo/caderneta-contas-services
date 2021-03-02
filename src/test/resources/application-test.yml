@@ -1,0 +1,8 @@
+spring:
+  cache:
+    type: "none"
+  jpa:
+    open-in-view: true
+  datasource:
+    hikari:
+      leak-detection-threshold: 3000

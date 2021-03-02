@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.caderneta.clients.UserClient;
 import com.caderneta.handler.exception.EmptyResultDataAccessException;
@@ -30,6 +31,7 @@ import com.caderneta.service.IMesService;
 import com.caderneta.service.IStatusContaService;
  
 @Service
+@Transactional
 public class ContaServiceImpl implements IContaService {
 
 	@Autowired

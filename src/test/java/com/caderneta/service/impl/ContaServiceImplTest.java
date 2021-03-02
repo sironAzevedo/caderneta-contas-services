@@ -171,7 +171,7 @@ class ContaServiceImplTest {
 		
 		Assertions
 			.assertThatExceptionOfType(UserException.class)
-			.isThrownBy(() -> service.findById("test.sivla@email.com", 1000L));
+			.isThrownBy(() -> service.findById("test.silva@email.com", 1000L));
 	}
 	
 	@Test
@@ -182,7 +182,7 @@ class ContaServiceImplTest {
 		
 		Assertions
 		.assertThatExceptionOfType(EmptyResultDataAccessException.class)
-		.isThrownBy(() -> service.findById("test.sivla@email.com", 1000L));
+		.isThrownBy(() -> service.findById("test.silva@email.com", 1000L));
 	}
 
 }

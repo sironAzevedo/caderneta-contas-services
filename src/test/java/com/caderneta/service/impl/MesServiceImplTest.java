@@ -46,10 +46,14 @@ class MesServiceImplTest {
 	void when_findByCode_isNotExist_returnEmptyResultDataAccessException() {
 		when(repository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.empty());
 		
-		Assertions
-		.assertThatExceptionOfType(EmptyResultDataAccessException.class)
-		.isThrownBy(() -> service.findById(1L));
 		
+		Assertions.assertThatThrownBy(() -> {
+			service.findById(MesCreate.mes().getCodigo());
+		}).isInstanceOf(EmptyResultDataAccessException.class);
+		
+		
+//		Assertions.assertThatExceptionOfType(EmptyResultDataAccessException.class)
+//		.isThrownBy(() -> service.findById(Long.valueOf(1)));
 	}
 
 }
