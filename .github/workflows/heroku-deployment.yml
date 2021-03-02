@@ -34,7 +34,7 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         name: Deploy Heroku
-        needs: test
+        needs: compile
         steps:
         - uses: actions/checkout@v2
         - name: Deploy to Heroku
