@@ -1,10 +1,7 @@
 package com.caderneta.kafka.config;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.kafka.annotation.EnableKafka;
-
-@EnableKafka
-@Configuration
+//@EnableKafka
+//@Configuration
 public class KafkaConsumerConfig {
 
 //	@Value(value = "${kafka.bootstrapAddress}")

@@ -11,17 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.caderneta.handler.StandardError;
 import com.caderneta.model.dto.MesDTO;
 import com.caderneta.service.IMesService;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping(value = "/v1/contas/mes")
-@ApiResponses(value = { @ApiResponse(code = 500, message = "Internal Server Error", response = StandardError.class) })
 public class MesController {
 
 	@Autowired
@@ -30,7 +26,7 @@ public class MesController {
 	@GetMapping
 	@ResponseBody
 	@ResponseStatus(value = HttpStatus.OK)
-	@ApiOperation(value = "Find All Type")
+	@Operation(summary = "Find All Type")
 	public List<MesDTO> findAll() {
 		return service.findAll();
 	}
@@ -38,7 +34,7 @@ public class MesController {
 	@ResponseBody
 	@GetMapping(value = "/by-code")
 	@ResponseStatus(value = HttpStatus.OK)
-	@ApiOperation(value = "Find By Code")
+	@Operation(summary = "Find By Code")
 	public MesDTO findById(@RequestParam(value = "code") Long code) {
 		return service.findById(code);
 	}

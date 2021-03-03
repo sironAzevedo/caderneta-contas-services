@@ -20,6 +20,7 @@ import com.caderneta.handler.exception.UserException;
 import com.caderneta.mapper.ContaMapper;
 import com.caderneta.mapper.MesMapper;
 import com.caderneta.mapper.StatusContaMapper;
+import com.caderneta.model.MesEntity;
 import com.caderneta.model.dto.ContaDTO;
 import com.caderneta.model.dto.MesDTO;
 import com.caderneta.model.dto.StatusContaDTO;
@@ -81,12 +82,13 @@ public class ContaServiceImpl implements IContaService {
 	}
 
 	@Override
-	@Cacheable(cacheNames = MesDTO.CACHE_NAME, key="#emailUser + #mes")
 	public List<ContaDTO> findByMes(String emailUser, Long mes) {
 		UserDTO user = this.getUser(emailUser);
 		MesDTO mesDTO = mesService.findById(mes);
 		
-		return repository.findByMesAndUsuario(MesMapper.INSTANCE.toEntity(mesDTO), user.getId()).stream().map(mapper::toDTO).collect(Collectors.toList());
+		
+		MesEntity entity = MesMapper.INSTANCE.toEntity(mesDTO);
+		return repository.findByMesAndUsuario(entity, user.getId()).stream().map(mapper::toDTO).collect(Collectors.toList());
 	}
 
 	@Override

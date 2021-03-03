@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,17 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.caderneta.handler.StandardError;
 import com.caderneta.model.dto.ContaDTO;
 import com.caderneta.service.IContaService;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping(value = "/v1/contas")
-@ApiResponses(value = { @ApiResponse(code = 500, message = "Internal Server Error", response = StandardError.class) })
 public class ContaController {
 
 	@Autowired
@@ -38,7 +35,7 @@ public class ContaController {
 	@PostMapping
 	@ResponseBody
 	@ResponseStatus(value = HttpStatus.CREATED)
-	@ApiOperation(value = "Create Conta")
+	@Operation(summary = "Create Conta")
 	public void create(@Valid @RequestBody ContaDTO dto) {
 		service.create(dto);
 	}
@@ -46,7 +43,7 @@ public class ContaController {
 	@PutMapping
 	@ResponseBody
 	@ResponseStatus(value = HttpStatus.OK)
-	@ApiOperation(value = "Update Conta")
+	@Operation(summary = "Update Conta")
 	public void update(@Valid @RequestBody ContaDTO dto) {
 		service.update(dto);
 	}
@@ -54,7 +51,7 @@ public class ContaController {
 	@ResponseBody
 	@DeleteMapping
 	@ResponseStatus(value = HttpStatus.NO_CONTENT)
-	@ApiOperation(value = "Delete Conta")
+	@Operation(summary = "Delete Conta")
 	public void delete(@RequestParam(value = "email") String user, @RequestParam(value = "conta") Long id) {
 		service.delete(user, id);
 	}
@@ -62,7 +59,7 @@ public class ContaController {
 	@ResponseBody
 	@GetMapping("/by-code")
 	@ResponseStatus(value = HttpStatus.OK)
-	@ApiOperation(value = "Find by user and code")
+	@Operation(summary = "Find by user and code")
 	public ContaDTO findById(@RequestParam(value = "email") String user, @RequestParam(value = "conta") Long id) {
 		return service.findById(user, id);
 	}
@@ -70,7 +67,7 @@ public class ContaController {
 	@ResponseBody
 	@GetMapping("/by-mes")
 	@ResponseStatus(value = HttpStatus.OK)
-	@ApiOperation(value = "Find by Mes")
+	@Operation(summary = "Find by Mes")
 	public List<ContaDTO> findByMes(@RequestParam(value = "email") String user, @RequestParam(value = "mes") Long mes) {
 		return service.findByMes(user, mes);
 	}
@@ -78,9 +75,9 @@ public class ContaController {
 	@ResponseBody
 	@GetMapping("/by-status")
 	@ResponseStatus(value = HttpStatus.OK)
-	@ApiOperation(value = "Find by Status")
+	@Operation(summary = "Find by Status")
 	public Page<ContaDTO> findByStatus(@RequestParam(value = "email") String user,
-			@RequestParam(value = "status") Long status, Pageable pageable) {
+			@RequestParam(value = "status") Long status, @ParameterObject Pageable pageable) {
 		return service.findByStatus(user, status, pageable);
 	}
 }
