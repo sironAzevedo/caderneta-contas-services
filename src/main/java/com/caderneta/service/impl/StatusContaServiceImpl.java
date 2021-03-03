@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.caderneta.handler.exception.EmptyResultDataAccessException;
 import com.caderneta.mapper.StatusContaMapper;
-import com.caderneta.model.dto.MesDTO;
 import com.caderneta.model.dto.StatusContaDTO;
 import com.caderneta.repository.IStatusContaRepository;
 import com.caderneta.service.IStatusContaService;
@@ -21,7 +20,7 @@ public class StatusContaServiceImpl implements IStatusContaService {
 	private IStatusContaRepository repository;
 
 	@Override
-	@Cacheable(cacheNames = MesDTO.CACHE_NAME)
+	@Cacheable(cacheNames = StatusContaDTO.CACHE_NAME)
 	public List<StatusContaDTO> findAll() {
 		return repository.findAll().stream().map(StatusContaMapper.INSTANCE::toDTO).collect(Collectors.toList());
 	}
