@@ -11,7 +11,7 @@ spring:
   redis:
     host: ${REDISCLOUD_URL:localhost}
     port: ${PORT_REDIS:6379}
-    #password: ${REDIS_PASS:''}
+    password: ${REDIS_PASS:''}
 
 client:
   user_url: ${USER_URL:http://localhost:8002}
