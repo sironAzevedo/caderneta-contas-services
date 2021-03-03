@@ -9,6 +9,7 @@ FROM openjdk:11-jdk-slim
 COPY --from=build /workspace/target/*.jar caderneta-contas-services.jar
 EXPOSE 8001
 
+ADD ./docker-entrypoint.sh /
 RUN ["chmod", "+x", "/docker-entrypoint.sh"]
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
