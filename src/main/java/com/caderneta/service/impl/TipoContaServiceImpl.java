@@ -26,7 +26,6 @@ public class TipoContaServiceImpl implements ITipoContaService {
 	}
 
 	@Override
-	@Cacheable(cacheNames = TipoContaDTO.CACHE_NAME, key="#codigo")
 	public TipoContaDTO findById(Long codigo) {
 		return repository.findById(codigo).map(TipoContaMapper.INSTANCE::toDTO)
 				.orElseThrow(() -> new EmptyResultDataAccessException("Mes não encontrada"));

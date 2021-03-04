@@ -26,7 +26,6 @@ public class StatusContaServiceImpl implements IStatusContaService {
 	}
 
 	@Override
-	@Cacheable(cacheNames = StatusContaDTO.CACHE_NAME, key="#codigo")
 	public StatusContaDTO findById(Long status) {
 		return repository.findById(status).map(StatusContaMapper.INSTANCE::toDTO)
 				.orElseThrow(() -> new EmptyResultDataAccessException("Status não encontrada"));

@@ -29,31 +29,26 @@ class MesServiceImplTest {
 	private IMesRepository repository;
 
 	@Test
-	void when_findAllMes_return_sucess() {
+	public void when_findAllMes_return_sucess() {
 		when(repository.findAll()).thenReturn(List.of(MesCreate.mes()));
 		List<MesDTO> res = service.findAll();
 		assertNotNull(res);
 	}
 	
 	@Test
-	void when_findByCode_return_mes() {
+	public void when_findByCode_return_mes() {
 		when(repository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(MesCreate.mes()));
 		MesDTO res = service.findById(1L);
 		assertNotNull(res);
 	}
 	
 	@Test
-	void when_findByCode_isNotExist_returnEmptyResultDataAccessException() {
+	public void when_findByCode_isNotExist_returnEmptyResultDataAccessException() {
 		when(repository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.empty());
-		
 		
 		Assertions.assertThatThrownBy(() -> {
 			service.findById(MesCreate.mes().getCodigo());
 		}).isInstanceOf(EmptyResultDataAccessException.class);
-		
-		
-//		Assertions.assertThatExceptionOfType(EmptyResultDataAccessException.class)
-//		.isThrownBy(() -> service.findById(Long.valueOf(1)));
 	}
 
 }

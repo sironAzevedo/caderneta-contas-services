@@ -26,7 +26,6 @@ public class MesServiceImpl implements IMesService {
 	}
 
 	@Override
-	@Cacheable(cacheNames = MesDTO.CACHE_NAME, key="#codigo")
 	public MesDTO findById(final Long codigo) {
 		return repository.findById(codigo).map(MesMapper.INSTANCE::toDTO)
 				.orElseThrow(() -> new EmptyResultDataAccessException("Mes não encontrado"));

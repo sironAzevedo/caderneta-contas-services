@@ -66,7 +66,7 @@ class ContaServiceImplTest {
 	private ContaEntity account;
 	
 	@BeforeEach
-	void setup() {
+	public void setup() {
 		user = new UserDTO();
 		user.setId(1L);
 		user.setName("Test da Silva");
@@ -76,7 +76,7 @@ class ContaServiceImplTest {
 	}
 
 	@Test
-	void whenCreateAccountValid_thenSucess() {
+	public void whenCreateAccountValid_thenSucess() {
 		ContaDTO dto = mapper.toDTO(account);
 		dto.setEmailUser("test.sivla@email.com");
 		when(userClient.findByEmail(ArgumentMatchers.anyString())).thenReturn(user);
@@ -85,7 +85,7 @@ class ContaServiceImplTest {
 	}
 	
 	@Test
-	void whenUpdateAccountValid_thenSucess() {
+	public void whenUpdateAccountValid_thenSucess() {
 		ContaDTO dto = mapper.toDTO(account);
 		dto.setCodigo(1000L);
 		dto.setEmailUser("test.sivla@email.com");
@@ -98,7 +98,7 @@ class ContaServiceImplTest {
 	}
 	
 	@Test
-	void whenDeleteAccountValid_thenSucess() {
+	public void whenDeleteAccountValid_thenSucess() {
 		
 		when(userClient.findByEmail(ArgumentMatchers.anyString())).thenReturn(user);
 		when(this.repository.findByCodigoAndUsuario(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong())).thenReturn(Optional.of(account));
@@ -108,7 +108,7 @@ class ContaServiceImplTest {
 	}
 	
 	@Test
-	void when_findAccount_byCode_returnAccount() {
+	public void when_findAccount_byCode_returnAccount() {
 		
 		when(userClient.findByEmail(ArgumentMatchers.anyString())).thenReturn(user);
 		when(this.repository.findByCodigoAndUsuario(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong())).thenReturn(Optional.of(account));
@@ -118,7 +118,7 @@ class ContaServiceImplTest {
 	}
 	
 	@Test
-	void when_findAccount_byMes_returnAccount() {
+	public void when_findAccount_byMes_returnAccount() {
 		
 		when(userClient.findByEmail(ArgumentMatchers.anyString())).thenReturn(user);
 		when(statusService.findById(ArgumentMatchers.anyLong())).thenReturn(StatusContaMapper.INSTANCE.toDTO(StatusContaCreate.status()));
@@ -131,7 +131,7 @@ class ContaServiceImplTest {
 	}
 	
 	@Test
-	void when_findAccount_byStatus_returnAccount() {
+	public void when_findAccount_byStatus_returnAccount() {
 		
 		when(userClient.findByEmail(ArgumentMatchers.anyString())).thenReturn(user);
 		when(mesService.findById(ArgumentMatchers.anyLong())).thenReturn(MesMapper.INSTANCE.toDTO(MesCreate.mes()));
@@ -142,7 +142,7 @@ class ContaServiceImplTest {
 	}
 	
 	@Test
-	void when_createAccount_with_statusContaParcelado_and_parcelasNull_returnUserException() {
+	public void when_createAccount_with_statusContaParcelado_and_parcelasNull_returnUserException() {
 		ContaDTO dto = mapper.toDTO(account);
 		
 		dto.setEmailUser("test.sivla@email.com");
@@ -165,7 +165,7 @@ class ContaServiceImplTest {
 	
 	
 	@Test
-	void when_findByCode_with_userNotExist_returnUserException() {
+	public void when_findByCode_with_userNotExist_returnUserException() {
 		
 		when(userClient.findByEmail(ArgumentMatchers.anyString())).thenReturn(null);
 		
@@ -175,7 +175,7 @@ class ContaServiceImplTest {
 	}
 	
 	@Test
-	void when_findByCode_with_AccountNotExist_returnEmptyResultDataAccessException() {
+	public void when_findByCode_with_AccountNotExist_returnEmptyResultDataAccessException() {
 		
 		when(userClient.findByEmail(ArgumentMatchers.anyString())).thenReturn(user);
 		when(this.repository.findByCodigoAndUsuario(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong())).thenReturn(Optional.empty());

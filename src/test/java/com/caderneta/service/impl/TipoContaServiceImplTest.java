@@ -29,21 +29,21 @@ class TipoContaServiceImplTest {
 	private ITipoContaRepository repository;
 
 	@Test
-	void when_findAllMes_return_sucess() {
+	public void when_findAllMes_return_sucess() {
 		when(repository.findAll()).thenReturn(List.of(TipoContaCreate.tipoConta()));
 		List<TipoContaDTO> res = service.findAll();
 		assertNotNull(res);
 	}
 	
 	@Test
-	void when_findByCode_return_mes() {
+	public void when_findByCode_return_mes() {
 		when(repository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(TipoContaCreate.tipoConta()));
 		TipoContaDTO res = service.findById(1L);
 		assertNotNull(res);
 	}
 	
 	@Test
-	void when_findByCode_isNotExist_returnEmptyResultDataAccessException() {
+	public void when_findByCode_isNotExist_returnEmptyResultDataAccessException() {
 		when(repository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.empty());
 		
 		Assertions
