@@ -14,8 +14,7 @@ spring:
     password: ${REDIS_PASS:''}
 
 client:
-  user_url: ${USER_URL:http://localhost:8002}
-    
+  user_url: ${USER_URL:http://localhost:8002}    
       
 eureka:
   client:
