@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.caderneta.model.dto.DashboardDTO;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -79,5 +80,13 @@ public class ContaController {
 	public Page<ContaDTO> findByStatus(@RequestParam(value = "email") String user,
 			@RequestParam(value = "status") Long status, @ParameterObject Pageable pageable) {
 		return service.findByStatus(user, status, pageable);
+	}
+
+	@GetMapping("/dashboard")
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.OK)
+	@Operation(summary = "Dashboard")
+	public Page<DashboardDTO> dashboard(@RequestParam(value = "email") String email, Pageable pageable) {
+		return service.dashboards(email, pageable);
 	}
 }

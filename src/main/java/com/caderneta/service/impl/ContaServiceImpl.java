@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.caderneta.mapper.DashboardMapper;
+import com.caderneta.model.DashboardEntity;
+import com.caderneta.model.dto.*;
+import com.caderneta.repository.IDashboardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -21,10 +25,6 @@ import com.caderneta.mapper.ContaMapper;
 import com.caderneta.mapper.MesMapper;
 import com.caderneta.mapper.StatusContaMapper;
 import com.caderneta.model.MesEntity;
-import com.caderneta.model.dto.ContaDTO;
-import com.caderneta.model.dto.MesDTO;
-import com.caderneta.model.dto.StatusContaDTO;
-import com.caderneta.model.dto.UserDTO;
 import com.caderneta.model.enums.StatusConta;
 import com.caderneta.repository.IContaRepository;
 import com.caderneta.service.IContaService;
@@ -37,12 +37,18 @@ public class ContaServiceImpl implements IContaService {
 
 	@Autowired
 	private IContaRepository repository;
+
+	@Autowired
+	private IDashboardRepository dashboardRepository;
 	
 	@Autowired
 	private UserClient userClient;
 	
 	@Autowired
 	private ContaMapper mapper;
+
+	@Autowired
+	private DashboardMapper dashboardMapper;
 	
 	@Autowired
 	private IMesService mesService;
@@ -97,6 +103,14 @@ public class ContaServiceImpl implements IContaService {
 		StatusContaDTO statusDTO = statusService.findById(status);
 		
 		List<ContaDTO> result = repository.findByStatusAndUsuario(StatusContaMapper.INSTANCE.toEntity(statusDTO), user.getId(), pageable).stream().map(mapper::toDTO).collect(Collectors.toList());
+		return new PageImpl<>(result, pageable, result.size());
+	}
+
+	@Override
+	@Cacheable(cacheNames = ContaDTO.CACHE_NAME, key="#email + #pageable.getPageNumber() + #pageable.getPageSize()")
+	public Page<DashboardDTO> dashboards(String email, Pageable pageable) {
+		UserDTO user = this.getUser(email);
+		List<DashboardDTO> result = dashboardRepository.findByIdUsuario(user.getId()).stream().map(dashboardMapper::toDTO).collect(Collectors.toList());
 		return new PageImpl<>(result, pageable, result.size());
 	}
 

@@ -2,6 +2,7 @@ package com.caderneta.service;
 
 import java.util.List;
 
+import com.caderneta.model.dto.DashboardDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,5 +21,7 @@ public interface IContaService {
 	List<ContaDTO> findByMes(String emailUser, Long mes);
 
 	Page<ContaDTO> findByStatus(String emailUser, Long status, Pageable pageable);
+
+	Page<DashboardDTO> dashboards(String email, Pageable pageable);
 
 }
